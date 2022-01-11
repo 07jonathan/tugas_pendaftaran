@@ -166,8 +166,7 @@ public class AdminGui extends ComponentGui {
         btnback.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                LoginAdminGui loginAdminGui = new LoginAdminGui();
-                loginAdminGui.setVisible(true);
+                new TampilanUtama().setVisible(true);
                 dispose();
             }
         });

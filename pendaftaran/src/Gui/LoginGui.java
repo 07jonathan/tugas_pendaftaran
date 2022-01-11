@@ -11,8 +11,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.JTableHeader;
 
 public class LoginGui extends ComponentGui {
+    String pathicon;
+    JTableHeader reg = new JTableHeader();
     JLabel judul = new JLabel("LOGIN");
     
     public LoginGui(){
@@ -33,9 +36,9 @@ public class LoginGui extends ComponentGui {
         judul.setFont(new Font ("Georgia", 1, 30));
         add(judul);
         
-        kotak.setBounds(0, 0, 300, 40);
-        kotak.setBackground(new Color(0, 191, 255));
-        add(kotak);
+        reg.setBounds(0, 0, 300, 40);
+        reg.setBackground(new Color(0, 191, 255));
+        add(reg);
         
         labelnpm.setBounds(30, 290, 40, 25);
         add(labelnpm);
@@ -113,6 +116,7 @@ public class LoginGui extends ComponentGui {
             public void actionPerformed(ActionEvent e){
                 String npm = fieldnpm.getText();
                 String password = fieldpassword.getText();
+                try{
                 int cek = AllObjectController.mahasiswa.login(npm, password);
                 if(cek > 0){
                     int cekverif = AllObjectController.mahasiswa.verif(cek);
@@ -127,6 +131,25 @@ public class LoginGui extends ComponentGui {
                 } else {
                     JOptionPane.showMessageDialog(null, "GAGAL LOGIN");
                     kosong();
+                }
+                }
+                
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Cancelled");
+                }
+                try{
+                    int cek = AllObjectController.admin.login(npm, password);
+                if(cek > 0){
+                    dispose();
+                    AdminGui adminGui = new AdminGui(cek);
+                    adminGui.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "GAGAL LOGIN");
+                    kosong();
+                }
+                }
+                catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Cancelled");
                 }
             }
         });

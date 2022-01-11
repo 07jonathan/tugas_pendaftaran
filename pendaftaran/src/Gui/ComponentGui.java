@@ -3,7 +3,6 @@ package Gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import javax.swing.table.JTableHeader;
 
 public class ComponentGui extends JFrame {
     protected JButton btnregister = new JButton("DAFTAR");
@@ -23,6 +22,7 @@ public class ComponentGui extends JFrame {
     protected JLabel labelnotelp = new JLabel("NO TELP");
     protected JLabel labelpaket = new JLabel("PAKET");
     protected JLabel bingkaigambar = new JLabel();
+    protected JLabel header = new JLabel("HOME");
     
     protected JTextField fieldnama = new JTextField();
     protected JTextField fieldnpm = new JTextField();
@@ -35,18 +35,11 @@ public class ComponentGui extends JFrame {
     protected JButton btnubahpassword = new JButton("Ubah");
     protected JButton btnubahnotelp = new JButton("Ubah");
     protected JButton btnubahpaket = new JButton("Ubah");
-    
-    protected JButton tbnlogin = new JButton("LOGIN");
-    protected JButton btnloginadmin = new JButton("ADMIN");
-    protected JTableHeader kotak = new JTableHeader();
-    protected String pathicon;
+    protected JComboBox jComboBoxPaket = new JComboBox(); 
     
     protected JMenu menu = new JMenu();
     protected JMenuBar menubar = new JMenuBar();
     protected JMenuItem menu1 = new JMenuItem();
-    protected JMenuItem menu2 = new JMenuItem();
-    protected JMenuItem menu3 = new JMenuItem();
-    protected JComboBox jComboBoxPaket = new JComboBox(); 
     
     BufferedImage bufferedImage = null;
     Image gambarresize;

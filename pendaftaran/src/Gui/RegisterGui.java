@@ -12,11 +12,15 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.table.JTableHeader;
 import Helper.KoneksiDb;
 import java.sql.Statement;
 import java.sql.ResultSet;
 
 public class RegisterGui extends ComponentGui {
+    //JMenu menu = new JMenu("PILIH PAKET");
+    JTableHeader reg = new JTableHeader();
+    String pathicon;
     KoneksiDb koneksi = new KoneksiDb();
     
     public RegisterGui(){
@@ -38,9 +42,9 @@ public class RegisterGui extends ComponentGui {
         labelregister.setFont(new Font ("Georgia", 1, 30));
         add(labelregister);
         
-        kotak.setBounds(0, 0, 300, 40);
-        kotak.setBackground(new Color(0, 191, 255));
-        add(kotak);
+        reg.setBounds(0, 0, 300, 40);
+        reg.setBackground(new Color(0, 191, 255));
+        add(reg);
         
         labelnama.setBounds(30, 155, 40, 25);
         add(labelnama);
@@ -68,7 +72,7 @@ public class RegisterGui extends ComponentGui {
         add(jComboBoxPaket);
         
         
-        btnregister.setBounds(80, 380, 140, 25);
+        btnregister.setBounds(80, 370, 140, 25);
         btnregister.setBorder(null);
         btnregister.setBackground(Color.black);
         btnregister.setForeground(Color.white);
@@ -154,6 +158,7 @@ public class RegisterGui extends ComponentGui {
     public void tampil_combo()
     {
         try {
+        
         Connection con = koneksi.getconnection();
         Statement stt = con.createStatement();
         String sql = "SELECT jurusan from paketa order by jurusan asc";      // disini saya menampilkan NIM, anda dapat menampilkan
@@ -162,8 +167,11 @@ public class RegisterGui extends ComponentGui {
         while(res.next()){
             Object[] ob = new Object[3];
             ob[0] = res.getString(1);
+            
             jComboBoxPaket.addItem(ob[0]);                                      // fungsi ini bertugas menampung isi dari database
-            }
+        }
+        //res.close(); stt.close();
+         
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

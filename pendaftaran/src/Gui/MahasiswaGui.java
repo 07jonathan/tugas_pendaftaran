@@ -22,14 +22,15 @@ public class MahasiswaGui extends ComponentGui {
     JLabel judul = new JLabel("PROFIL");
     int id;
     int status;
-    String nama, npm, password, notelp, path, paket;
+    String nama, npm, password, notelp, gambar, path, paket;
     String filemove = "./src/Images/";
     KoneksiDb koneksi = new KoneksiDb();
-    File file;
     
+    
+    File file;
     public MahasiswaGui(int cek){
         initComponent(cek);
-        tampil_combo();
+                        tampil_combo();
 
     }
     
@@ -111,6 +112,12 @@ public class MahasiswaGui extends ComponentGui {
         btnback.setForeground(Color.white);
         add(btnback);
         
+        
+        jComboBoxPaket.addItem(tampil_combo()[0]);
+        jComboBoxPaket.addItem(tampil_combo()[1]);
+        jComboBoxPaket.addItem(tampil_combo()[2]);
+        jComboBoxPaket.addItem(tampil_combo()[3]);
+        
         judul.setBounds(90, 115, 150, 30);
         judul.setBackground(Color.black);
         judul.setFont(new Font ("Georgia", 1, 25));
@@ -148,26 +155,7 @@ public class MahasiswaGui extends ComponentGui {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                new LoginGui().setVisible(true);
-            }
-        });
-        
-        btnubahpaket.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e){
-                try{
-                    tampil_combo();
-                    
-                    String paket = (String)jComboBoxPaket.getSelectedItem();
-                    if(paket.length() > 0){
-                        AllObjectController.mahasiswa.updateData(5, paket, cek);
-                        fieldpaket.setText(paket);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Data Kosong");
-                    }
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, "Cancelled");
-                }
+                new TampilanUtama().setVisible(true);
             }
         });
         
@@ -238,10 +226,33 @@ public class MahasiswaGui extends ComponentGui {
                 }
             }
         });
+        
+        
+        btnubahpaket.addActionListener(new ActionListener(){
+            
+            @Override
+            public void actionPerformed(ActionEvent e){
+                try{
+                    
+                String paket = (String)jComboBoxPaket.getSelectedItem();
+                    if(paket.length() > 0){
+                        AllObjectController.mahasiswa.updateData(5, paket, cek);
+                        fieldpaket.setText(paket);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Data Kosong");
+                    }
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, "Cancelled");
+                }
+            }
+        });
     }
     
-    public void tampil_combo()
+    public Object[] tampil_combo()
     {
+        Object[] ob = new Object[5];
+            
+        int i=0;
         try {
         
         Connection con = koneksi.getconnection();
@@ -250,14 +261,15 @@ public class MahasiswaGui extends ComponentGui {
         ResultSet res = stt.executeQuery(sql);                                
         
         while(res.next()){
-            Object[] ob = new Object[3];
-            ob[0] = res.getString(1);
-            
-            jComboBoxPaket.addItem(ob[0]);                                     
-            }
+            ob[i] = res.getString(1);
+            i++;
+         }
+         
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        
+        return ob;
     }
     
 }
